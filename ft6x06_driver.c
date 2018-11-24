@@ -226,7 +226,7 @@ static  int tpd_up(tinno_ts_data *ts, int x, int y, int pressure, int trackID)
 #ifdef FTS_SUPPORT_TRACK_ID
         input_report_abs(tpd->dev, ABS_MT_TRACKING_ID, trackID);
 #endif
-        input_report_abs(tpd->dev, ABS_MT_WIDTH_MAJOR, 0);
+        input_report_abs(tpd->dev, ABS_MT_WIDTH_MAJOR, 1);
         input_report_abs(tpd->dev, ABS_MT_TOUCH_MAJOR, 0);// This must be placed at the last one.
         input_mt_sync(tpd->dev);
     }

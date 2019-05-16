@@ -1,0 +1,38 @@
+# Get var value from build.ini
+TARGET_NAME := \
+    $(strip $(subst ro.target =,,$(shell cat $(PWD)/build.ini |grep ro.target)))
+
+PROJECT_NAME := \
+    $(strip $(subst ro.project =,,$(shell cat $(PWD)/build.ini |grep ro.project)))
+
+TARGET_BOARD_PLATFORM := \
+    $(strip $(subst TARGET_BOARD_PLATFORM =,,$(shell cat $(PWD)/build.ini |grep TARGET_BOARD_PLATFORM)))
+
+TINNO_FINGERPRINT_SUPPORT := \
+    $(strip $(subst TINNO_FINGERPRINT_SUPPORT =,,$(shell cat $(PWD)/build.ini |grep TINNO_FINGERPRINT_SUPPORT)))
+
+$(warning -- $(TARGET_NAME) -- $(PROJECT_NAME) -- $(TARGET_BOARD_PLATFORM) -- $(TINNO_FINGERPRINT_SUPPORT) --)
+
+ifneq ($(strip $(TINNO_FINGERPRINT_SUPPORT)),)
+ifeq ($(strip $(TARGET_BOARD_PLATFORM)),)
+    $(error TARGET_BOARD_PLATFORM == NULL ,STOP !!!)
+endif
+endif
+
+# Fp driver dir.
+fingerprint_source_dir := vendor/tinno/Fingerprint-N/KERNEL
+
+ifneq ($(strip $(findstring msm89, $(TARGET_BOARD_PLATFORM))),)
+    # qcom
+    kernel_fp_source_dir := $(fingerprint_source_dir)/qcom/kernel-3.18/drivers/input/fingerprint
+else
+    # mtk
+    kernel_fp_source_dir := $(fingerprint_source_dir)/mtk/kernel-3.18/drivers/input/fingerprint
+endif
+
+# -> #define TINNO_FINGERPRINT_SUPPORT
+ifneq ($(strip $(TINNO_FINGERPRINT_SUPPORT)),)
+ccflags-y += -DTINNO_FINGERPRINT_SUPPORT
+ccflags-y += -DTINNO_FP_QWK_SUPPORT
+endif
+

@@ -13,7 +13,7 @@
 #endif
 
 /* Local Constants */
-#define LCM_NAME "WE_V3"
+#define LCM_NAME "univerxal"
 #define LCM_VERSION "19.52" /* YEAR+"."+MONTH+DATE */
 #define FRAME_WIDTH  (720)
 #define FRAME_HEIGHT (1280)

@@ -1300,7 +1300,7 @@ static void Audio_Amp_Change(int channels, bool enable)
 /* Vanzo:yuntaohe on: Thu, 24 Dec 2015 10:57:57 +0800
 				Ana_Set_Reg(AUDTOP_CON4, 0x005C, 0xffff);
  */
-				Ana_Set_Reg(AUDTOP_CON4, 0x003C, 0xffff);
+				Ana_Set_Reg(AUDTOP_CON4, 0x007C, 0xffff);
 // End of Vanzo:yuntaohe
 			} else {
 				/* enable audio bias. enable audio DAC, HP buffers */
